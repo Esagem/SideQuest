@@ -7,6 +7,8 @@ import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
 import 'package:sidequest/features/auth/screens/welcome_screen.dart';
 import 'package:sidequest/features/explore/screens/explore_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
+import 'package:sidequest/features/profile/screens/friend_profile_screen.dart';
+import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
 import 'package:sidequest/features/proof/screens/share_card_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
@@ -64,7 +66,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/profile',
-            builder: (_, __) => const _PlaceholderScreen(title: 'Profile'),
+            builder: (_, __) => const ProfileScreen(),
           ),
         ],
       ),
@@ -94,6 +96,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/share/:userQuestId',
         builder: (_, state) => ShareCardScreen(
           userQuestId: state.pathParameters['userQuestId']!,
+        ),
+      ),
+
+      // Friend Profile
+      GoRoute(
+        path: '/profile/:userId',
+        builder: (_, state) => FriendProfileScreen(
+          userId: state.pathParameters['userId']!,
         ),
       ),
 
