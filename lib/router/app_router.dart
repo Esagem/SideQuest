@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sidequest/features/auth/screens/log_in_screen.dart';
 import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
 import 'package:sidequest/features/auth/screens/welcome_screen.dart';
+import 'package:sidequest/features/explore/screens/explore_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
 import 'package:sidequest/providers/auth_providers.dart';
@@ -53,7 +54,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/explore',
-            builder: (_, __) => const _PlaceholderScreen(title: 'Explore'),
+            builder: (_, __) => const ExploreScreen(),
           ),
           GoRoute(
             path: '/activity',
