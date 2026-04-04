@@ -8,6 +8,9 @@ import 'package:sidequest/features/auth/screens/welcome_screen.dart';
 import 'package:sidequest/features/explore/screens/explore_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
 import 'package:sidequest/features/leaderboard/screens/leaderboard_screen.dart';
+import 'package:sidequest/features/onboarding/screens/category_picker_screen.dart';
+import 'package:sidequest/features/onboarding/screens/intent_picker_screen.dart';
+import 'package:sidequest/features/onboarding/screens/starter_quests_screen.dart';
 import 'package:sidequest/features/profile/screens/friend_profile_screen.dart';
 import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
@@ -52,6 +55,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/auth/login',
         builder: (_, __) => const LogInScreen(),
+      ),
+
+      // Onboarding
+      GoRoute(
+        path: '/onboarding/intents',
+        builder: (_, __) => const IntentPickerScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding/categories',
+        builder: (_, __) => const CategoryPickerScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding/starter',
+        builder: (_, __) => const StarterQuestsScreen(),
       ),
 
       // Main Shell (Bottom Nav)
