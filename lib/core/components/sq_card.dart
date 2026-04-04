@@ -46,6 +46,7 @@ class SQCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           color: isDark ? AppColors.cardNavy : AppColors.white,
           borderRadius: AppRadius.cardRadius,
