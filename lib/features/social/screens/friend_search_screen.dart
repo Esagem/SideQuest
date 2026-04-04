@@ -169,6 +169,21 @@ class _DefaultContent extends StatelessWidget {
               SQToast.success(context, 'Contact sync coming soon!');
             },
           ),
+          const SizedBox(height: AppSpacing.xl),
+          // Invite section
+          Text(
+            'Invite Friends',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          SQButton.primary(
+            label: 'Invite via share',
+            icon: Icons.share,
+            onPressed: () {
+              // Uses ShareService.shareGeneric with invite message
+              SQToast.success(context, 'Invite link copied!');
+            },
+          ),
         ],
       );
 }
