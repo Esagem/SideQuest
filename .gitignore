@@ -1,0 +1,61 @@
+# Flutter/Dart
+*.g.dart
+*.freezed.dart
+.dart_tool/
+build/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# macOS
+.DS_Store
+.metadata
+
+# Android
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# iOS
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/Flutter/App.framework
+**/ios/**/Flutter/Flutter.framework
+**/ios/**/Flutter/Flutter.podspec
+**/ios/**/Flutter/Generated.xcconfig
+**/ios/**/Flutter/ephemeral
+**/ios/**/Flutter/app.flx
+**/ios/**/Flutter/app.zip
+**/ios/**/Flutter/flutter_assets/
+**/ios/**/Flutter/flutter_export_environment.sh
+**/ios/Flutter/GeneratedPluginRegistrant.*
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+
+# Firebase
+firebase_options.dart
+google-services.json
+GoogleService-Info.plist
+
+# Cloud Functions
+functions/node_modules/
+functions/lib/
+
+# Secrets
+*.env
+*.jks
+*.keystore
