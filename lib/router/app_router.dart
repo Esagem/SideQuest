@@ -6,6 +6,7 @@ import 'package:sidequest/features/auth/screens/log_in_screen.dart';
 import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
 import 'package:sidequest/features/auth/screens/welcome_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
+import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
 import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/router/main_shell.dart';
 
@@ -74,8 +75,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // Quest Detail
       GoRoute(
         path: '/quest/:questId',
-        builder: (_, state) => _PlaceholderScreen(
-          title: 'Quest ${state.pathParameters['questId']}',
+        builder: (_, state) => QuestDetailScreen(
+          questId: state.pathParameters['questId']!,
         ),
       ),
 
