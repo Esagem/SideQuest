@@ -7,6 +7,7 @@ import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
 import 'package:sidequest/features/auth/screens/welcome_screen.dart';
 import 'package:sidequest/features/explore/screens/explore_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
+import 'package:sidequest/features/leaderboard/screens/leaderboard_screen.dart';
 import 'package:sidequest/features/profile/screens/friend_profile_screen.dart';
 import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
@@ -108,6 +109,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
 
       // Settings
+      // Leaderboard
+      GoRoute(
+        path: '/leaderboard',
+        builder: (_, __) => const LeaderboardScreen(),
+      ),
+
       GoRoute(
         path: '/settings',
         builder: (_, __) => const _PlaceholderScreen(title: 'Settings'),
