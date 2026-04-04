@@ -6,5 +6,6 @@ library;
 
 export 'badge_service.dart';
 export 'quest_service.dart';
+export 'storage_service.dart';
 export 'streak_service.dart';
 export 'xp_service.dart';

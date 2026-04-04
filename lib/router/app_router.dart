@@ -7,6 +7,8 @@ import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
 import 'package:sidequest/features/auth/screens/welcome_screen.dart';
 import 'package:sidequest/features/explore/screens/explore_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
+import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
+import 'package:sidequest/features/proof/screens/share_card_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
 import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/router/main_shell.dart';
@@ -78,6 +80,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/quest/:questId',
         builder: (_, state) => QuestDetailScreen(
           questId: state.pathParameters['questId']!,
+        ),
+      ),
+
+      // Proof
+      GoRoute(
+        path: '/proof/:userQuestId',
+        builder: (_, state) => ProofSubmissionScreen(
+          userQuestId: state.pathParameters['userQuestId']!,
+        ),
+      ),
+      GoRoute(
+        path: '/share/:userQuestId',
+        builder: (_, state) => ShareCardScreen(
+          userQuestId: state.pathParameters['userQuestId']!,
         ),
       ),
 
