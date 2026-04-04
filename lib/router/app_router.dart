@@ -13,6 +13,9 @@ import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
 import 'package:sidequest/features/proof/screens/share_card_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
+import 'package:sidequest/features/settings/screens/moderation_policy_screen.dart';
+import 'package:sidequest/features/settings/screens/report_screen.dart';
+import 'package:sidequest/features/settings/screens/settings_screen.dart';
 import 'package:sidequest/features/social/screens/challenge_flow_screen.dart';
 import 'package:sidequest/features/social/screens/friend_search_screen.dart';
 import 'package:sidequest/providers/auth_providers.dart';
@@ -131,7 +134,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       GoRoute(
         path: '/settings',
-        builder: (_, __) => const _PlaceholderScreen(title: 'Settings'),
+        builder: (_, __) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/moderation-policy',
+        builder: (_, __) => const ModerationPolicyScreen(),
+      ),
+      GoRoute(
+        path: '/report/:targetType/:targetId',
+        builder: (_, state) => ReportScreen(
+          targetType: state.pathParameters['targetType']!,
+          targetId: state.pathParameters['targetId']!,
+        ),
       ),
     ],
   );
