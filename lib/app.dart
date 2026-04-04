@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'package:sidequest/core/theme/app_theme.dart';
+
 /// Root widget for the SideQuest application.
 ///
-/// Configures [MaterialApp] with theming, routing, and global providers.
+/// Configures [MaterialApp] with light and dark themes built from
+/// the SideQuest design system tokens, and responds to the system
+/// brightness setting.
 class SideQuestApp extends StatelessWidget {
   /// Creates a [SideQuestApp].
   const SideQuestApp({super.key});
@@ -10,10 +14,8 @@ class SideQuestApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'SideQuest',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1B2A4A)),
-          useMaterial3: true,
-        ),
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
         home: const Scaffold(
           body: Center(
             child: Text('SideQuest'),
