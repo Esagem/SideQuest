@@ -5,3 +5,4 @@
 library;
 
 export 'json_converters.dart';
+export 'pro_gate.dart';
