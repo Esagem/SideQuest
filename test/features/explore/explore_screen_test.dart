@@ -61,6 +61,25 @@ void main() {
       await tester.pumpAndSettle();
       expect(find.text('No quests found'), findsOneWidget);
     });
+
+    testWidgets('renders quest cards with data', (tester) async {
+      await tester.pumpWidget(wrapScreen(quests: testQuests));
+      await tester.pumpAndSettle();
+      expect(find.text('Climb a Mountain'), findsWidgets);
+    });
+
+    testWidgets('shows category filter chips', (tester) async {
+      await tester.pumpWidget(wrapScreen());
+      await tester.pumpAndSettle();
+      expect(find.text('All'), findsOneWidget);
+      expect(find.text('Travel & Adventure'), findsOneWidget);
+    });
+
+    testWidgets('shows search bar in integrated screen', (tester) async {
+      await tester.pumpWidget(wrapScreen());
+      await tester.pumpAndSettle();
+      expect(find.byIcon(Icons.search), findsOneWidget);
+    });
   });
 
   group('QuestSearchBar', () {
@@ -115,6 +134,19 @@ void main() {
   });
 
   group('TrendingSection', () {
+    testWidgets('renders trending title with quests', (tester) async {
+      await tester.pumpWidget(wrap(
+        SingleChildScrollView(
+          child: TrendingSection(
+            quests: testQuests,
+            onTap: (_) {},
+            onAdd: (_) {},
+          ),
+        ),
+      ),);
+      expect(find.text('Trending'), findsOneWidget);
+    });
+
     testWidgets('empty when no quests', (tester) async {
       await tester.pumpWidget(wrap(
         TrendingSection(
