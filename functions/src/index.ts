@@ -8,3 +8,4 @@ export { weeklyStreakCheck } from './weeklyStreakCheck';
 export { monthlyStreakFreezeReset } from './monthlyStreakFreezeReset';
 export { computeLeaderboards } from './computeLeaderboards';
 export { keywordFilter } from './keywordFilter';
+export { seedQuests } from './seedQuests';

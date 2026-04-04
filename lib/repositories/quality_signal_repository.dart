@@ -33,4 +33,17 @@ class QualitySignalRepository {
         await _collection.where('questId', isEqualTo: questId).get();
     return snap.docs.map((d) => d.data()).toList();
   }
+
+  /// Checks whether a user has already signaled a quest.
+  Future<bool> hasUserSignaled({
+    required String questId,
+    required String userId,
+  }) async {
+    final snap = await _collection
+        .where('questId', isEqualTo: questId)
+        .where('userId', isEqualTo: userId)
+        .limit(1)
+        .get();
+    return snap.docs.isNotEmpty;
+  }
 }

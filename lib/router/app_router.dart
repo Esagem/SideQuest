@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:sidequest/features/activity/screens/activity_screen.dart';
 import 'package:sidequest/features/auth/screens/log_in_screen.dart';
 import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
@@ -9,11 +8,19 @@ import 'package:sidequest/features/auth/screens/welcome_screen.dart';
 import 'package:sidequest/features/explore/screens/explore_screen.dart';
 import 'package:sidequest/features/home/screens/home_screen.dart';
 import 'package:sidequest/features/leaderboard/screens/leaderboard_screen.dart';
+import 'package:sidequest/features/onboarding/screens/category_picker_screen.dart';
+import 'package:sidequest/features/onboarding/screens/intent_picker_screen.dart';
+import 'package:sidequest/features/onboarding/screens/starter_quests_screen.dart';
 import 'package:sidequest/features/profile/screens/friend_profile_screen.dart';
 import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
 import 'package:sidequest/features/proof/screens/share_card_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
+import 'package:sidequest/features/settings/screens/moderation_policy_screen.dart';
+import 'package:sidequest/features/settings/screens/report_screen.dart';
+import 'package:sidequest/features/settings/screens/settings_screen.dart';
+import 'package:sidequest/features/social/screens/challenge_flow_screen.dart';
+import 'package:sidequest/features/social/screens/friend_search_screen.dart';
 import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/router/main_shell.dart';
 
@@ -48,6 +55,20 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/auth/login',
         builder: (_, __) => const LogInScreen(),
+      ),
+
+      // Onboarding
+      GoRoute(
+        path: '/onboarding/intents',
+        builder: (_, __) => const IntentPickerScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding/categories',
+        builder: (_, __) => const CategoryPickerScreen(),
+      ),
+      GoRoute(
+        path: '/onboarding/starter',
+        builder: (_, __) => const StarterQuestsScreen(),
       ),
 
       // Main Shell (Bottom Nav)
@@ -109,6 +130,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // Social
+      GoRoute(
+        path: '/friends/search',
+        builder: (_, __) => const FriendSearchScreen(),
+      ),
+      GoRoute(
+        path: '/challenge/:questId',
+        builder: (_, state) => ChallengeFlowScreen(
+          questId: state.pathParameters['questId']!,
+        ),
+      ),
+
       // Settings
       // Leaderboard
       GoRoute(
@@ -118,7 +151,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
       GoRoute(
         path: '/settings',
-        builder: (_, __) => const _PlaceholderScreen(title: 'Settings'),
+        builder: (_, __) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/settings/moderation-policy',
+        builder: (_, __) => const ModerationPolicyScreen(),
+      ),
+      GoRoute(
+        path: '/report/:targetType/:targetId',
+        builder: (_, state) => ReportScreen(
+          targetType: state.pathParameters['targetType']!,
+          targetId: state.pathParameters['targetId']!,
+        ),
       ),
     ],
   );

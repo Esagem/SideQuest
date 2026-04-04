@@ -1,0 +1,14 @@
+# flutter_native_splash configuration
+# Run: dart run flutter_native_splash:create
+#
+# Displays the SideQuest logo on a navy background during app startup.
+# Transitions seamlessly into the Flutter app without a blank frame.
+
+flutter_native_splash:
+  color: "#1B2A4A"
+  image: "assets/splash/splash_logo.png"
+  android: true
+  ios: true
+  android_12:
+    color: "#1B2A4A"
+    image: "assets/splash/splash_logo.png"
