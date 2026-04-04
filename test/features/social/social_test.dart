@@ -157,14 +157,14 @@ void main() {
       expect(find.text('Challenge a Friend'), findsOneWidget);
     });
 
-    testWidgets('has Send Challenge button', (tester) async {
+    testWidgets('shows Next button on first step', (tester) async {
       await tester.pumpWidget(ProviderScope(
         child: MaterialApp(
           theme: AppTheme.lightTheme,
           home: const ChallengeFlowScreen(questId: 'q1'),
         ),
       ),);
-      expect(find.text('Send Challenge ⚡'), findsOneWidget);
+      expect(find.text('Next'), findsOneWidget);
     });
   });
 
