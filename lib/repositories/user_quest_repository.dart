@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:sidequest/core/utils/json_converters.dart';
 import 'package:sidequest/models/user_quest_model.dart';
 
 /// Repository for user quest data stored as a subcollection
@@ -20,7 +21,7 @@ class UserQuestRepository {
           .withConverter<UserQuestModel>(
             fromFirestore: (snap, _) =>
                 UserQuestModel.fromJson({...snap.data()!, 'id': snap.id}),
-            toFirestore: (model, _) => model.toJson()..remove('id'),
+            toFirestore: (model, _) => deepToJson(model.toJson())..remove('id'),
           );
 
   /// Adds a quest to the user's list.

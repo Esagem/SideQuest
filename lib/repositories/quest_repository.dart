@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:sidequest/core/utils/json_converters.dart';
 import 'package:sidequest/models/quest_model.dart';
 
 /// Repository for quest data in Firestore.
@@ -15,7 +16,7 @@ class QuestRepository {
       _firestore.collection('quests').withConverter<QuestModel>(
             fromFirestore: (snap, _) =>
                 QuestModel.fromJson({...snap.data()!, 'id': snap.id}),
-            toFirestore: (model, _) => model.toJson()..remove('id'),
+            toFirestore: (model, _) => deepToJson(model.toJson())..remove('id'),
           );
 
   /// Creates a new quest and returns its document ID.
