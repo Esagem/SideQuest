@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:sidequest/features/activity/screens/activity_screen.dart';
 import 'package:sidequest/features/auth/screens/log_in_screen.dart';
 import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
@@ -14,6 +13,8 @@ import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
 import 'package:sidequest/features/proof/screens/share_card_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
+import 'package:sidequest/features/social/screens/challenge_flow_screen.dart';
+import 'package:sidequest/features/social/screens/friend_search_screen.dart';
 import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/router/main_shell.dart';
 
@@ -106,6 +107,18 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/profile/:userId',
         builder: (_, state) => FriendProfileScreen(
           userId: state.pathParameters['userId']!,
+        ),
+      ),
+
+      // Social
+      GoRoute(
+        path: '/friends/search',
+        builder: (_, __) => const FriendSearchScreen(),
+      ),
+      GoRoute(
+        path: '/challenge/:questId',
+        builder: (_, state) => ChallengeFlowScreen(
+          questId: state.pathParameters['questId']!,
         ),
       ),
 
