@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:sidequest/features/activity/screens/activity_screen.dart';
 import 'package:sidequest/features/auth/screens/log_in_screen.dart';
 import 'package:sidequest/features/auth/screens/sign_up_screen.dart';
 import 'package:sidequest/features/auth/screens/welcome_screen.dart';
@@ -63,7 +64,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/activity',
-            builder: (_, __) => const _PlaceholderScreen(title: 'Activity'),
+            builder: (_, __) => const ActivityScreen(),
           ),
           GoRoute(
             path: '/profile',
