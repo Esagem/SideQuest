@@ -8,5 +8,6 @@ export 'badges.dart';
 export 'categories.dart';
 export 'difficulties.dart';
 export 'intents.dart';
+export 'seed_quests.dart';
 export 'tiers.dart';
 export 'xp.dart';
