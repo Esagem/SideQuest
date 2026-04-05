@@ -1,0 +1,27 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "sidequest-yolo",
+          "appId": "1:340998642975:android:a674e0cacc60fc6b4e642a",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "sidequest-yolo",
+          "configurations": {
+            "android": "1:340998642975:android:a674e0cacc60fc6b4e642a",
+            "ios": "1:340998642975:ios:d14271e084cae13e4e642a",
+            "web": "1:340998642975:web:c3f7af5035c42e5d4e642a"
+          }
+        }
+      }
+    }
+  }
+}

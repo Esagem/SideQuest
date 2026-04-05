@@ -14,8 +14,9 @@ class QuestRepository {
 
   CollectionReference<QuestModel> get _collection =>
       _firestore.collection('quests').withConverter<QuestModel>(
-            fromFirestore: (snap, _) =>
-                QuestModel.fromJson({...snap.data()!, 'id': snap.id}),
+            fromFirestore: (snap, _) => QuestModel.fromJson(
+                {...convertTimestamps(snap.data()!), 'id': snap.id},
+              ),
             toFirestore: (model, _) => deepToJson(model.toJson())..remove('id'),
           );
 

@@ -212,7 +212,7 @@ class _StageTile extends StatelessWidget {
                 Switch(
                   value: entry.proofRequired,
                   onChanged: onProofToggled,
-                  activeColor: AppColors.oceanTeal,
+                  activeThumbColor: AppColors.oceanTeal,
                 ),
               ],
             ),

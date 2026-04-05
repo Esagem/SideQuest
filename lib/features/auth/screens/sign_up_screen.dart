@@ -9,7 +9,9 @@ import 'package:sidequest/core/theme/app_colors.dart';
 import 'package:sidequest/core/theme/app_spacing.dart';
 import 'package:sidequest/features/auth/widgets/auth_form.dart';
 import 'package:sidequest/features/auth/widgets/social_auth_button.dart';
+import 'package:sidequest/models/user_model.dart';
 import 'package:sidequest/providers/auth_providers.dart';
+import 'package:sidequest/providers/user_providers.dart';
 
 /// Sign-up screen with email/password, social auth, and age gate.
 class SignUpScreen extends ConsumerStatefulWidget {
@@ -58,9 +60,24 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
 
     setState(() => _isLoading = true);
     try {
-      await ref.read(authRepositoryProvider).signUp(
+      final credential = await ref.read(authRepositoryProvider).signUp(
             email: _emailController.text.trim(),
             password: _passwordController.text,
+          );
+      final user = credential.user!;
+      final email = user.email ?? '';
+      final username = email.split('@').first.toLowerCase().replaceAll(RegExp('[^a-z0-9_]'), '_');
+      final now = DateTime.now();
+      await ref.read(userRepositoryProvider).create(
+            UserModel(
+              uid: user.uid,
+              email: email,
+              displayName: username,
+              username: username,
+              dateOfBirth: _dateOfBirth!,
+              createdAt: now,
+              updatedAt: now,
+            ),
           );
       if (mounted) context.go('/');
     } on Exception catch (e) {
