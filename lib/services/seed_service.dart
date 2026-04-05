@@ -26,7 +26,7 @@ class SeedService {
 
     final now = Timestamp.now();
     const batchSize = 500;
-    final quests = SeedQuests.all;
+    const quests = SeedQuests.all;
 
     for (var i = 0; i < quests.length; i += batchSize) {
       final batch = _firestore.batch();

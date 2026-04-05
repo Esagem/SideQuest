@@ -47,6 +47,11 @@ export const onQuestCompleted = functions.firestore
       xp += quest.blocks.bonus.xpBonus;
     }
 
+    // People block bonus (social quest)
+    if (quest.blocks?.people?.minPeople > 1) {
+      xp += PEOPLE_BONUS;
+    }
+
     // Update user stats
     const userRef = db.collection('users').doc(userId);
     await userRef.update({
