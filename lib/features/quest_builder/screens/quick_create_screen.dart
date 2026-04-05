@@ -14,6 +14,7 @@ import 'package:sidequest/models/blocks/block_config.dart';
 import 'package:sidequest/models/blocks/proof_block.dart';
 import 'package:sidequest/models/quest_model.dart';
 import 'package:sidequest/providers/auth_providers.dart';
+import 'package:sidequest/providers/quest_providers.dart';
 
 /// Simplified linear quest creation flow.
 ///
@@ -66,7 +67,7 @@ class _QuickCreateScreenState extends ConsumerState<QuickCreateScreen> {
     }
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     final userId = ref.read(authStateProvider).valueOrNull?.uid;
     if (userId == null) {
       SQToast.error(context, 'You must be signed in.');
@@ -88,9 +89,14 @@ class _QuickCreateScreenState extends ConsumerState<QuickCreateScreen> {
       updatedAt: now,
     );
 
-    // TODO(quest): Save via QuestService
-    SQToast.success(context, 'Quest created: ${quest.title}');
-    context.pop();
+    try {
+      final questId = await ref
+          .read(questServiceProvider)
+          .createQuest(quest: quest, creatorId: userId);
+      if (mounted) context.go('/quest/$questId');
+    } on Exception {
+      if (mounted) SQToast.error(context, 'Failed to create quest. Try again.');
+    }
   }
 
   @override

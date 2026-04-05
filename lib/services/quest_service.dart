@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sidequest/models/quest_model.dart';
 import 'package:sidequest/models/user_quest_model.dart';
 import 'package:sidequest/repositories/quest_repository.dart';
@@ -64,7 +65,7 @@ class QuestService {
 
     // Increment the quest's addedCount
     await questRepository.update(questId, {
-      'addedCount': _increment,
+      'addedCount': FieldValue.increment(1),
     });
 
     return userQuestId;
@@ -100,7 +101,7 @@ class QuestService {
     });
 
     await questRepository.update(questId, {
-      'completedCount': _increment,
+      'completedCount': FieldValue.increment(1),
     });
   }
 
@@ -114,8 +115,4 @@ class QuestService {
       });
 }
 
-/// Sentinel value indicating a Firestore FieldValue.increment(1).
-///
-/// In production this would use [FieldValue.increment(1)] directly,
-/// but keeping as a constant allows easier testing.
-const _increment = 1;
+

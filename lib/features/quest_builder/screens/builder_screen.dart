@@ -26,17 +26,25 @@ import 'package:sidequest/features/quest_builder/widgets/blocks/wildcard_block_w
 import 'package:sidequest/features/quest_builder/widgets/quest_preview_card.dart';
 import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/providers/builder_providers.dart';
+import 'package:sidequest/providers/quest_providers.dart';
 
 /// Full-screen quest builder with drag-and-drop block placement.
 ///
 /// Top bar has close, title, and publish button. The main area is a
 /// scrollable list of placed blocks. The bottom has a block tray.
-class BuilderScreen extends ConsumerWidget {
+class BuilderScreen extends ConsumerStatefulWidget {
   /// Creates a [BuilderScreen].
   const BuilderScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<BuilderScreen> createState() => _BuilderScreenState();
+}
+
+class _BuilderScreenState extends ConsumerState<BuilderScreen> {
+  bool _isPublishing = false;
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(builderStateProvider);
     final notifier = ref.read(builderStateProvider.notifier);
     final isValid = notifier.validate().isEmpty;
@@ -45,10 +53,12 @@ class BuilderScreen extends ConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.close),
-          onPressed: () {
-            notifier.reset();
-            context.pop();
-          },
+          onPressed: _isPublishing
+              ? null
+              : () {
+                  notifier.reset();
+                  context.pop();
+                },
         ),
         title: const Text('Create Quest'),
         actions: [
@@ -56,12 +66,18 @@ class BuilderScreen extends ConsumerWidget {
             padding: const EdgeInsets.only(right: AppSpacing.sm),
             child: SizedBox(
               width: AppSpacing.xxl * 2.5,
-              child: SQButton.primary(
-                label: 'Publish',
-                onPressed: isValid
-                    ? () => _publish(context, ref, notifier)
-                    : null,
-              ),
+              child: _isPublishing
+                  ? const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    )
+                  : SQButton.primary(
+                      label: 'Publish',
+                      onPressed: isValid ? _publish : null,
+                    ),
             ),
           ),
         ],
@@ -85,8 +101,6 @@ class BuilderScreen extends ConsumerWidget {
               children: [
                 for (var i = 0; i < state.blocks.length; i++)
                   _buildBlockCard(
-                    context,
-                    ref,
                     state.blocks[i],
                     isExpanded: state.expandedBlockId == state.blocks[i],
                     isRequired: state.blocks[i] == 'title',
@@ -105,8 +119,6 @@ class BuilderScreen extends ConsumerWidget {
   }
 
   Widget _buildBlockCard(
-    BuildContext context,
-    WidgetRef ref,
     String blockId, {
     required bool isExpanded,
     required bool isRequired,
@@ -121,11 +133,11 @@ class BuilderScreen extends ConsumerWidget {
       onTap: () => notifier.toggleExpanded(blockId),
       onRemove: isRequired ? null : () => notifier.removeBlock(blockId),
       summary: _summaryFor(blockId, ref.read(builderStateProvider)),
-      child: _buildBlockContent(blockId, ref),
+      child: _buildBlockContent(blockId),
     );
   }
 
-  Widget? _buildBlockContent(String blockId, WidgetRef ref) {
+  Widget? _buildBlockContent(String blockId) {
     final notifier = ref.read(builderStateProvider.notifier);
     void onChanged(dynamic config) =>
         notifier.updateBlockConfig(blockId, config);
@@ -140,7 +152,8 @@ class BuilderScreen extends ConsumerWidget {
       'people' => PeopleBlockWidget(onConfigChanged: onChanged),
       'time' => TimeBlockWidget(onConfigChanged: onChanged),
       'category' => CategoryBlockWidget(
-          onConfigChanged: (category) => notifier.updateCategory(category as String),
+          onConfigChanged: (category) =>
+              notifier.updateCategory(category as String),
         ),
       'difficulty' => DifficultyBlockWidget(
           onConfigChanged: notifier.updateDifficulty,
@@ -165,26 +178,31 @@ class BuilderScreen extends ConsumerWidget {
         _ => null,
       };
 
-  void _publish(
-    BuildContext context,
-    WidgetRef ref,
-    BuilderNotifier notifier,
-  ) {
+  Future<void> _publish() async {
     final userId = ref.read(authStateProvider).valueOrNull?.uid;
     if (userId == null) {
       SQToast.error(context, 'You must be signed in to publish.');
       return;
     }
 
+    final notifier = ref.read(builderStateProvider.notifier);
     final model = notifier.toQuestModel(userId);
     if (model == null) {
       SQToast.error(context, 'Please fill in all required fields.');
       return;
     }
 
-    // TODO(quest): Save via QuestService and navigate to detail
-    SQToast.success(context, 'Quest created!');
-    notifier.reset();
-    context.pop();
+    setState(() => _isPublishing = true);
+    try {
+      final questId = await ref
+          .read(questServiceProvider)
+          .createQuest(quest: model, creatorId: userId);
+      notifier.reset();
+      if (mounted) context.go('/quest/$questId');
+    } on Exception {
+      if (mounted) SQToast.error(context, 'Failed to publish. Try again.');
+    } finally {
+      if (mounted) setState(() => _isPublishing = false);
+    }
   }
 }

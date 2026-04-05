@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sidequest/features/activity/screens/activity_screen.dart';
@@ -15,6 +14,8 @@ import 'package:sidequest/features/profile/screens/friend_profile_screen.dart';
 import 'package:sidequest/features/profile/screens/profile_screen.dart';
 import 'package:sidequest/features/proof/screens/proof_submission_screen.dart';
 import 'package:sidequest/features/proof/screens/share_card_screen.dart';
+import 'package:sidequest/features/quest_builder/screens/builder_screen.dart';
+import 'package:sidequest/features/quest_builder/screens/quick_create_screen.dart';
 import 'package:sidequest/features/quest_detail/screens/quest_detail_screen.dart';
 import 'package:sidequest/features/settings/screens/moderation_policy_screen.dart';
 import 'package:sidequest/features/settings/screens/report_screen.dart';
@@ -97,7 +98,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // Quest Builder (full screen, no bottom nav)
       GoRoute(
         path: '/builder',
-        builder: (_, __) => const _PlaceholderScreen(title: 'Quest Builder'),
+        builder: (_, __) => const BuilderScreen(),
+      ),
+      GoRoute(
+        path: '/quick-create',
+        builder: (_, __) => const QuickCreateScreen(),
       ),
 
       // Quest Detail
@@ -142,13 +147,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
-      // Settings
       // Leaderboard
       GoRoute(
         path: '/leaderboard',
         builder: (_, __) => const LeaderboardScreen(),
       ),
 
+      // Settings
       GoRoute(
         path: '/settings',
         builder: (_, __) => const SettingsScreen(),
@@ -167,16 +172,3 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
-
-/// Temporary placeholder screen for unimplemented routes.
-class _PlaceholderScreen extends StatelessWidget {
-  const _PlaceholderScreen({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: Text(title)),
-        body: Center(child: Text(title)),
-      );
-}
