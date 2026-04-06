@@ -16,49 +16,60 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(flex: 2),
-                const Icon(
-                  Icons.explore_rounded,
-                  size: AppSpacing.xxl * 2,
-                  color: AppColors.sunsetOrange,
-                ),
-                const SizedBox(height: AppSpacing.lg),
-                Text(
-                  'SideQuest',
-                  style: AppTypography.hero.copyWith(
-                    fontSize: 36,
+          child: LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.xl,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: constraints.maxHeight * 0.15,
+                      ),
+                      const Icon(
+                        Icons.explore_rounded,
+                        size: AppSpacing.xxl * 2,
+                        color: AppColors.sunsetOrange,
+                      ),
+                      const SizedBox(height: AppSpacing.lg),
+                      Text(
+                        'SideQuest',
+                        style: AppTypography.hero.copyWith(fontSize: 36),
+                      ),
+                      const SizedBox(height: AppSpacing.xs),
+                      Text(
+                        'Stop scrolling. Start doing.',
+                        style: AppTypography.body.copyWith(
+                          color: AppColors.softGray,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: constraints.maxHeight * 0.2,
+                      ),
+                      SQButton.primary(
+                        label: 'Get Started',
+                        onPressed: () => context.go('/auth/signup'),
+                      ),
+                      const SizedBox(height: AppSpacing.md),
+                      TextButton(
+                        onPressed: () => context.go('/auth/login'),
+                        child: Text(
+                          'Already have an account? Log in',
+                          style: AppTypography.body.copyWith(
+                            color: AppColors.sunsetOrange,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: AppSpacing.xl),
+                    ],
                   ),
                 ),
-                const SizedBox(height: AppSpacing.xs),
-                Text(
-                  'Stop scrolling. Start doing.',
-                  style: AppTypography.body.copyWith(
-                    color: AppColors.softGray,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const Spacer(flex: 3),
-                SQButton.primary(
-                  label: 'Get Started',
-                  onPressed: () => context.go('/auth/signup'),
-                ),
-                const SizedBox(height: AppSpacing.md),
-                TextButton(
-                  onPressed: () => context.go('/auth/login'),
-                  child: Text(
-                    'Already have an account? Log in',
-                    style: AppTypography.body.copyWith(
-                      color: AppColors.sunsetOrange,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: AppSpacing.xxl),
-              ],
+              ),
             ),
           ),
         ),
