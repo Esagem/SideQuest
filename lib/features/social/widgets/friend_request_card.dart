@@ -34,45 +34,55 @@ class FriendRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => SQCard(
-        child: Row(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            SQAvatar(
-              displayName: displayName,
-              imageUrl: avatarUrl,
-              size: AppSpacing.xxl,
-            ),
-            const SizedBox(width: AppSpacing.sm),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    displayName,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+            Row(
+              children: [
+                SQAvatar(
+                  displayName: displayName,
+                  imageUrl: avatarUrl,
+                  size: AppSpacing.xxl,
+                ),
+                const SizedBox(width: AppSpacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        displayName,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      Text(
+                        '@$username',
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.labelSmall,
+                      ),
+                    ],
                   ),
-                  Text(
-                    '@$username',
-                    style: Theme.of(context).textTheme.labelSmall,
+                ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            Row(
+              children: [
+                Expanded(
+                  child: SQButton.primary(
+                    label: 'Accept',
+                    onPressed: onAccept,
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: AppSpacing.xxl * 1.8,
-              child: SQButton.primary(
-                label: 'Accept',
-                onPressed: onAccept,
-              ),
-            ),
-            const SizedBox(width: AppSpacing.xs),
-            SizedBox(
-              width: AppSpacing.xxl * 1.8,
-              child: SQButton.tertiary(
-                label: 'Decline',
-                onPressed: onDecline,
-              ),
+                ),
+                const SizedBox(width: AppSpacing.xs),
+                Expanded(
+                  child: SQButton.tertiary(
+                    label: 'Decline',
+                    onPressed: onDecline,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

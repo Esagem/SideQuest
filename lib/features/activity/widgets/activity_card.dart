@@ -93,6 +93,7 @@ class ActivityCard extends StatelessWidget {
                     children: [
                       Text(
                         displayName,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),

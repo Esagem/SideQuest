@@ -122,15 +122,21 @@ class LeaderboardEntry extends StatelessWidget {
             ),
             // Mini badge showcase
             if (entry.badgeShowcase.isNotEmpty)
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  for (final badgeId in entry.badgeShowcase.take(3))
-                    Padding(
-                      padding: const EdgeInsets.only(left: AppSpacing.xxs),
-                      child: SQBadgeIcon(badgeId: badgeId, size: AppSpacing.lg),
-                    ),
-                ],
+              Flexible(
+                flex: 0,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (final badgeId in entry.badgeShowcase.take(3))
+                      Padding(
+                        padding: const EdgeInsets.only(left: AppSpacing.xxs),
+                        child: SQBadgeIcon(
+                          badgeId: badgeId,
+                          size: AppSpacing.lg,
+                        ),
+                      ),
+                  ],
+                ),
               ),
             const SizedBox(width: AppSpacing.sm),
             // XP

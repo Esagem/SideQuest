@@ -41,7 +41,9 @@ class SpotCheckPrompt extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(top: AppSpacing.xs),
-      child: Row(
+      child: Wrap(
+        spacing: AppSpacing.sm,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           Text(
             'Legit?',
@@ -49,13 +51,11 @@ class SpotCheckPrompt extends StatelessWidget {
                   color: AppColors.softGray,
                 ),
           ),
-          const SizedBox(width: AppSpacing.sm),
           _SpotButton(
             label: 'Legit ✓',
             color: AppColors.oceanTeal,
             onTap: onLegit,
           ),
-          const SizedBox(width: AppSpacing.xs),
           _SpotButton(
             label: 'Hmm... 🤔',
             color: AppColors.softGray,
