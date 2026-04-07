@@ -11,7 +11,9 @@ import 'package:sidequest/features/explore/widgets/intent_filter_bar.dart';
 import 'package:sidequest/features/explore/widgets/quest_search_bar.dart';
 import 'package:sidequest/features/explore/widgets/trending_section.dart';
 import 'package:sidequest/models/quest_model.dart';
+import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/providers/quest_providers.dart';
+import 'package:sidequest/providers/user_quest_providers.dart';
 
 /// The Explore screen with search, filters, trending, and quest feed.
 ///
@@ -70,9 +72,25 @@ class _ExploreScreenState extends ConsumerState<ExploreScreen> {
     return filtered;
   }
 
-  void _onAddToList(String questId) {
-    // TODO(explore): Wire to QuestService.addQuestToList
-    SQToast.success(context, 'Added to your quest list!');
+  Future<void> _onAddToList(String questId) async {
+    final user = ref.read(authStateProvider).valueOrNull;
+    if (user == null) return;
+    final activeQuests =
+        ref.read(activeQuestsProvider).valueOrNull ?? [];
+    try {
+      await ref.read(questServiceProvider).addQuestToList(
+            userId: user.uid,
+            questId: questId,
+            currentSortOrder: activeQuests.length,
+          );
+      if (mounted) {
+        SQToast.success(context, 'Added to your quest list!');
+      }
+    } on Exception catch (e) {
+      if (mounted) {
+        SQToast.error(context, 'Failed to add quest: $e');
+      }
+    }
   }
 
   @override

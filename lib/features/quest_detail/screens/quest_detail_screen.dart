@@ -12,7 +12,9 @@ import 'package:sidequest/core/theme/app_spacing.dart';
 import 'package:sidequest/features/quest_detail/widgets/block_summary.dart';
 import 'package:sidequest/features/quest_detail/widgets/quality_signal_bar.dart';
 import 'package:sidequest/features/quest_detail/widgets/stage_progress_tracker.dart';
+import 'package:sidequest/providers/auth_providers.dart';
 import 'package:sidequest/providers/quest_providers.dart';
+import 'package:sidequest/providers/user_quest_providers.dart';
 
 /// Full quest detail screen with block breakdown, actions, and stats.
 ///
@@ -146,8 +148,27 @@ class QuestDetailScreen extends ConsumerWidget {
                 SQButton.primary(
                   label: 'Add to My List',
                   icon: Icons.add,
-                  onPressed: () =>
-                      SQToast.success(context, 'Added to your list!'),
+                  onPressed: () async {
+                    final user =
+                        ref.read(authStateProvider).valueOrNull;
+                    if (user == null) return;
+                    final activeQuests =
+                        ref.read(activeQuestsProvider).valueOrNull ?? [];
+                    try {
+                      await ref.read(questServiceProvider).addQuestToList(
+                            userId: user.uid,
+                            questId: quest.id,
+                            currentSortOrder: activeQuests.length,
+                          );
+                      if (context.mounted) {
+                        SQToast.success(context, 'Added to your list!');
+                      }
+                    } on Exception catch (e) {
+                      if (context.mounted) {
+                        SQToast.error(context, 'Failed to add quest: $e');
+                      }
+                    }
+                  },
                 ),
                 const SizedBox(height: AppSpacing.sm),
                 SQButton.secondary(
