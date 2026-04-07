@@ -147,11 +147,11 @@ class SQButton extends StatelessWidget {
         children: [
           Icon(icon, size: AppSpacing.lg),
           const SizedBox(width: AppSpacing.xs),
-          Text(label),
+          Flexible(child: Text(label, overflow: TextOverflow.ellipsis)),
         ],
       );
     }
-    return Text(label);
+    return Text(label, overflow: TextOverflow.ellipsis);
   }
 }
 

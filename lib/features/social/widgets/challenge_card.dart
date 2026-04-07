@@ -66,11 +66,14 @@ class ChallengeCard extends StatelessWidget {
                   size: AppSpacing.lg,
                 ),
                 const SizedBox(width: AppSpacing.xs),
-                Text(
-                  isIncoming ? 'Challenge from' : 'Challenge sent to',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColors.softGray,
-                      ),
+                Flexible(
+                  child: Text(
+                    isIncoming ? 'Challenge from' : 'Challenge sent to',
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.softGray,
+                        ),
+                  ),
                 ),
               ],
             ),
@@ -90,6 +93,7 @@ class ChallengeCard extends StatelessWidget {
                     children: [
                       Text(
                         senderName,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.w600,
                             ),
@@ -175,11 +179,14 @@ class _StatusRow extends StatelessWidget {
                 size: AppSpacing.lg,
               ),
               const SizedBox(width: AppSpacing.xxs),
-              Text(
-                'Accepted — quest in progress!',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.oceanTeal,
-                    ),
+              Flexible(
+                child: Text(
+                  'Accepted — quest in progress!',
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.oceanTeal,
+                      ),
+                ),
               ),
             ],
           ),
@@ -191,12 +198,15 @@ class _StatusRow extends StatelessWidget {
                 size: AppSpacing.lg,
               ),
               const SizedBox(width: AppSpacing.xxs),
-              Text(
-                'Completed! +25 XP earned',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColors.warmYellow,
-                      fontWeight: FontWeight.w600,
-                    ),
+              Flexible(
+                child: Text(
+                  'Completed! +25 XP earned',
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColors.warmYellow,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
               ),
             ],
           ),

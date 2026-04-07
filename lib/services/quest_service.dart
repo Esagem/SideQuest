@@ -114,5 +114,3 @@ class QuestService {
         'status': 'archived',
       });
 }
-
-

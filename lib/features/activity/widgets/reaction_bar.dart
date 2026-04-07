@@ -29,14 +29,14 @@ class ReactionBar extends StatelessWidget {
   static const presets = ['🔥', '💪', '🎉', '👏', '😮', '❤️'];
 
   @override
-  Widget build(BuildContext context) => Row(
+  Widget build(BuildContext context) => Wrap(
+        spacing: AppSpacing.xs,
+        runSpacing: AppSpacing.xxs,
         children: presets.map((emoji) {
           final count = reactions[emoji] ?? 0;
           final isSelected = userReaction == emoji;
 
-          return Padding(
-            padding: const EdgeInsets.only(right: AppSpacing.xs),
-            child: GestureDetector(
+          return GestureDetector(
               onTap: () => onReact(isSelected ? null : emoji),
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -68,7 +68,6 @@ class ReactionBar extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
           );
         }).toList(),
       );
